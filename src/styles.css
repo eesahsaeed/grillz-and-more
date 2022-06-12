@@ -1,0 +1,54 @@
+
+.active-link{
+  background: linear-gradient(180deg, #ea5b30, #f07727);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.container{
+  margin-top: 20px;
+}
+
+.image{
+  border-radius: 20px;
+}
+
+@media (min-width: 600px) {
+  .slogan-text{
+    position: relative;
+    padding: 100px 100px 0;
+  }
+}
+
+.fancy-button{
+  margin-top: 20px;
+  background: linear-gradient(180deg, #ea5b30, #f07727);
+  color: wheat;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+}
+
+.theme-selector{
+  display: inline-block;
+  position: fixed;
+  top: 200px;
+  right: 30px;
+  width: 30px;
+  height: 30px;
+  background-color: whitesmoke;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 1px 1px 1.5px 1.5px #888888;
+}
+
+.cart-notification{
+  display: inline-block;
+  position: absolute;
+  top: 2px;
+  right: 1px;
+  width: 8px;
+  height: 8px;
+  background-color: red;
+  border-radius: 50%;
+}
