@@ -5,6 +5,7 @@ import burger from "../assets/burger.jpg";
 
 import Header from "./Header";
 import {Container, Image, Col, Row} from "react-bootstrap";
+import Footer from "./Footer";
 
 export default function Home({theme, changeTheme}){
 
@@ -25,6 +26,7 @@ export default function Home({theme, changeTheme}){
           </Col>
         </Row>
       </Container>
+      <Footer/>
     </div>
   )
 }
