@@ -1,55 +1,45 @@
 
-import React, {useState} from "react";
-import {NavLink} from "react-router-dom";
-import {Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
-import {BsHandbag} from "react-icons/bs";
-import {IconContext} from "react-icons";
-import logo from "../assets/logo.png";
+import React from "react";
+import {Container, Navbar} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
-export default function Header({theme, changeTheme}){
-  //#ea5b30
-  //#f07727
-  let themeSelector = theme === "dark" ? "bg-light" : "bg-dark";
-  let textColor = theme === "dark" ? "text-light" : "text-dark";
+import authHelper from "../helper/auth-helper";
+console.log(authHelper.isAuthenticated());
 
+export default function Header(){
   return (
-    <div>
-      <Navbar collapseOnSelect expand="lg" bg={theme} variant={theme}>
-        <Container fluid={true}>
-        <Navbar.Brand href="#home"><img src={logo} width={100}/></Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto"></Nav>
-          <Nav className="me-auto justify-content-end">
-            <NavLink to={"/"} className={({isActive}) => isActive ? "nav-link me-3 active-link" : "nav-link me-3"}>Home</NavLink>
-            <NavLink to={"/about-us"} className={({isActive}) => isActive ? "nav-link me-3 active-link" : "nav-link me-3"}>About Us</NavLink>
-            <NavLink to={"/menu"} className={({isActive}) => isActive ? "nav-link me-3 active-link" : "nav-link me-3"}>Menu</NavLink>
-            <NavLink to={"/gallery"} className={({isActive}) => isActive ? "nav-link me-3 active-link" : "nav-link me-3"}>Gallery</NavLink>
-            <NavLink to={"/contact"} className={({isActive}) => isActive ? "nav-link me-3 active-link" : "nav-link me-3"}>Contact</NavLink>
-          </Nav>
-          <Nav>
-            <NavLink to={"/cart"} style={{position: "relative"}}>
-              <IconContext.Provider value={{className: textColor, size: 25}}>
-                <BsHandbag/>
-              </IconContext.Provider>
-              <div className="cart-notification"></div>
-            </NavLink>
-          </Nav>
+    <Navbar>
+      <Container>
+        <Navbar.Brand className="text-light" style={{border: "1px solid white", padding: "2px 10px"}}>TRIGAN</Navbar.Brand>
+        <Navbar.Toggle />
+        <Navbar.Collapse className="justify-content-end">
+          {authHelper.isAuthenticated() ? <>
+            <Navbar.Text className="text-warning me-2">
+            <Link to="dashboard" className="text-warning nav-text">Dashboard</Link> 
+          </Navbar.Text>
+          <Navbar.Text className="text-warning me-2">
+            /
+          </Navbar.Text>
+          <Navbar.Text style={{cursor: "pointer"}} onClick={(e) => {
+              e.preventDefault();
+              authHelper.clearUser(() => {
+                window.location.reload()
+              });
+            }} className="text-warning nav-text">Log Out
+          </Navbar.Text>
+          </> : <>
+          <Navbar.Text className="text-warning me-2">
+            <Link to="sign-in" className="text-warning nav-text">Sign In</Link> 
+          </Navbar.Text>
+          <Navbar.Text className="text-warning me-2">
+            /
+          </Navbar.Text>
+          <Navbar.Text>
+            <Link to="sign-up" className="text-warning nav-text">Sign up</Link>
+          </Navbar.Text>
+          </>}
         </Navbar.Collapse>
-        </Container>
-      </Navbar>
-      <div className={`theme-selector ${themeSelector}`} onClick={() => {
-        switch (theme){
-          case "dark": 
-            changeTheme("light");
-            break;
-          case "light":
-            changeTheme("dark");
-            break;
-        }
-      }}>
-
-      </div>
-    </div>
+      </Container>
+    </Navbar>
   )
 }
